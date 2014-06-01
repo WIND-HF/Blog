@@ -40,3 +40,4 @@ gem 'spring',        group: :development
 # mysql2
 gem 'mysql2', '~> 0.3.16'
 gem 'bootstrap-sass', '~> 3.1.1.1'
+#gem 'mp3_player'

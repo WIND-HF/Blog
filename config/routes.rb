@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
   resources 'home'
-  resources 'switch'
+  #resources 'switch'
+  get 'switch/index'
+  get 'switch/show'
+  get 'switch/music'
+  get 'switch/song'
   #post 'switch/switch'
   #get 'switch/index'
 

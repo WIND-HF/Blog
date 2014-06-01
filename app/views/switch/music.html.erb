@@ -1,0 +1,26 @@
+<script>
+    function lkplay(filename, content) {
+        //alert("Hello World");
+        $player = $("#" + content).append("<audio controls><source></source></audio>")
+        $player.find("source").attr("src", filename).attr("type", "audio/wav").attr("id", "music");
+    }
+    function ajaxGetJSON(url, content) {
+        var posting = $.getJSON(url, {id: content});
+        posting.done(function(data) {
+            //var obj = JSON.parse(data);
+            //alert(data.name);
+            lkplay(data.path, content);
+        });
+    }
+</script>
+
+<ol>
+    <% @playlist.each do |m| %>
+        <li id=<%= m.id %>>
+            <p onclick="ajaxGetJSON('<%= switch_song_path %>', <%= m.id %>)">
+            <%= m.name %>
+            </p>
+        </li>
+    <% end %>
+</ol>
+

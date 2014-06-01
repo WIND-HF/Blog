@@ -6,3 +6,6 @@ else
 fi
 
 ./getAddr.rb | { read ipAddr; rails server -b $ipAddr -p $port ; }
+
+# restart unicron
+#killall ruby; unicorn -c config/unicorn.rb -D
