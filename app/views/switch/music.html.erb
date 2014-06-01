@@ -2,7 +2,7 @@
     function lkplay(filename, content) {
         //alert("Hello World");
         $player = $("#" + content).append("<audio controls><source></source></audio>")
-        $player.find("source").attr("src", filename).attr("type", "audio/wav").attr("id", "music");
+        $player.find("source").attr("src", filename).attr("type", "audio/wav");
     }
     function ajaxGetJSON(url, content) {
         var posting = $.getJSON(url, {id: content});
