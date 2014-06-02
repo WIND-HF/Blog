@@ -4,6 +4,9 @@ class SwitchController < ApplicationController
     @context ||= "Black"
   end
 
+  def new
+  end
+
   def show
     #name = params[:name] || "None"
   end
@@ -22,9 +25,16 @@ class SwitchController < ApplicationController
   end
 
   def upload
-    @music = params
+    @song = params[:music][:song]
+    @path = 'music'
+    @root = 'public'
 
-    respond_with test: @music
+    File.open(File.join(@root, @path, @song.original_filename), 'wb') do |file|
+      file.write(@song.read)
+    end
+    add_song(@song.original_filename, @path)
+
+    redirect_to switch_music_path
   end
 
   private

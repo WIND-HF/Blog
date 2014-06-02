@@ -1,32 +1,3 @@
-<script>
-    function lkplay(filename, content) {
-        //alert("Hello World");
-        var $song = $("#" + content);
-        if (document.getElementById(filename) == null) {
-            $song.append("<audio controls><source></source></audio>");
-            $song.find("source").attr("src", filename).attr("type", "audio/wav").attr("id", filename);
-        }
-        else {
-            $song.find("audio").remove();
-        }
-    }
-
-    function ajaxGetJSON(url, content) {
-        var posting = $.getJSON(url, {id: content});
-        posting.done(function(data) {
-            //var obj = JSON.parse(data);
-            //alert(data.name);
-            lkplay(data.path, content);
-        });
-    }
-    function ajaxUpdate() {
-        var $rlt = $("#playlist");
-
-        $rlt.empty();
-        $rlt.load("<%= switch_music_path %> #playlist li");
-    }
-</script>
-
 <ol>
     <div id="playlist">
     <% @playlist.each do |m| %>
@@ -38,33 +9,11 @@
     <% end %>
     </div>
 </ol>
-
+<!--
 <form enctype="multipart/form-data" id="Upload_Music_Form" name="song">
     <span><input name="title" type="file" id="song" /><br><br></span>
     <span><input type="button" value="Hey" id="submit"/></span>
 </form>
-<script>
-    $("#song").change(function(){
-        var file = this.files[0];
-        var name = file.name;
-        var size = file.size;
-        var type = file.type;
-    });
-    $("#submit").click(function() {
-        var formData = new FormData($("#Upload_Music_Form"));
-        alert("Hello");
-        $.ajax({
-            url: "<%= switch_upload_path %>",
-            type: "POST",
-            beforeSend: beforeSendHandler,
-            success: completeHandler,
-            error: errorHandler,
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false
-        }).done(function(data) {alert(data)});
-    });
-</script>
+-->
 
 <p onclick="ajaxUpdate()">UPDATE</p>

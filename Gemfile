@@ -41,3 +41,6 @@ gem 'spring',        group: :development
 gem 'mysql2', '~> 0.3.16'
 gem 'bootstrap-sass', '~> 3.1.1.1'
 #gem 'mp3_player'
+
+# View
+gem 'simple_form'
