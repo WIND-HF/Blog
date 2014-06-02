@@ -42,7 +42,7 @@ function ajaxGetJSON(url, content) {
         else if (data.type == 'mp3') {
             filetype = 'audio/mpeg';
         } else {
-            alert("Not support this format.");
+            filetype = data.type;
         }
         lkplay(data.path, content, filetype);
     });

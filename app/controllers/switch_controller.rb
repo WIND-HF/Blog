@@ -32,7 +32,7 @@ class SwitchController < ApplicationController
     File.open(File.join(@root, @path, @song.original_filename), 'wb') do |file|
       file.write(@song.read)
     end
-    add_song(@song.original_filename, @path)
+    add_song(@song.original_filename, @song.content_type, @path)
 
     redirect_to switch_music_path
   end
@@ -42,11 +42,11 @@ class SwitchController < ApplicationController
     params.require(:song).permit(:music)
   end
 
-  def add_song(filename, path='/music')
+  def add_song(filename, type, path='/music')
       if Music.find_by(:name=>(File.basename filename)) == nil
         m = Music.new
         m.name = File.basename(filename)
-        m.filetype = File.extname(filename)[1..-1]
+        m.filetype = music_format(type)
         m.path = File.join('/', path)
 
         m.save
@@ -60,7 +60,19 @@ class SwitchController < ApplicationController
     @filelist = @filelist.select { |filename| File.file? filename }
 
     @filelist.each do |filename|
-      add_song(filename)
+      add_song(filename, File.extname(filename)[1..-1])
+    end
+  end
+
+  def music_format(fileType)
+    if fileType == 'wav'
+      return 'audio/wav'
+    elsif fileType == 'mp3'
+      return 'audio/mpeg'
+    elsif fileType == 'ogg'
+      return 'audio/ogg'
+    else
+      return fileType
     end
   end
 end
