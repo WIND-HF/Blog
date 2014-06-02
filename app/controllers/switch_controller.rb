@@ -9,33 +9,48 @@ class SwitchController < ApplicationController
   end
 
   def music
-    root = 'public'
-    path = '/music'
-    filelist = Dir.entries(File.join(root, path)).collect { |filename| File.join(root, path, filename) }
-    filelist = filelist.select { |filename| File.file? filename }
-
-    filelist.each do |filename|
-      next if Music.find_by(:name=>(File.basename filename)) != nil
-
-      m = Music.new
-      m.name = File.basename(filename)
-      m.filetype = File.extname(filename)[1..-1]
-      m.path = File.join('/', path)
-
-      m.save
-    end
+    update_playlist('/music')
 
     @playlist = Music.all
   end
 
   def song
-    song = Music.find(params[:id])
-    songPath = File.join(song.path, song.name)
+    @song = Music.find(params[:id])
+    @songPath = File.join(@song.path, @song.name)
 
-    respond_with path: songPath, type: song.filetype
+    respond_with path: @songPath, type: @song.filetype
   end
 
-  def ajax_param
-    params.require(:switch).permit(:context)
+  def upload
+    @music = params
+
+    respond_with test: @music
+  end
+
+  private
+  def upload_param
+    params.require(:song).permit(:music)
+  end
+
+  def add_song(filename, path='/music')
+      if Music.find_by(:name=>(File.basename filename)) == nil
+        m = Music.new
+        m.name = File.basename(filename)
+        m.filetype = File.extname(filename)[1..-1]
+        m.path = File.join('/', path)
+
+        m.save
+      end
+  end
+
+  def update_playlist(path)
+    @root = 'public'
+    @path = File.join('/', path)
+    @filelist = Dir.entries(File.join(@root, @path)).collect { |filename| File.join(@root, @path, filename) }
+    @filelist = @filelist.select { |filename| File.file? filename }
+
+    @filelist.each do |filename|
+      add_song(filename)
+    end
   end
 end

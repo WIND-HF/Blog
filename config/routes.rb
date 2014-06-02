@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'switch/show'
   get 'switch/music'
   get 'switch/song'
+  post 'switch/upload'
   #post 'switch/switch'
   #get 'switch/index'
 
