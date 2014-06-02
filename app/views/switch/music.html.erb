@@ -9,11 +9,13 @@
     <% end %>
     </div>
 </ol>
+
 <!--
-<form enctype="multipart/form-data" id="Upload_Music_Form" name="song">
-    <span><input name="title" type="file" id="song" /><br><br></span>
-    <span><input type="button" value="Hey" id="submit"/></span>
+<form enctype="multipart/form-data">
+    <input name="song" type="file" /><br><br>
+    <input type="button" value="Upload" />
 </form>
+<progress></progress>
 -->
 
-<p onclick="ajaxUpdate()">UPDATE</p>
+<%= link_to "Upload", switch_new_path %>

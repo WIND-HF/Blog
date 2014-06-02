@@ -1,15 +1,22 @@
-$("#song").change(function(){
+$(":song").change(function(){
     var file = this.files[0];
     var name = file.name;
     var size = file.size;
     var type = file.type;
 });
-$("#submit").click(function() {
-    var formData = new FormData($("#Upload_Music_Form"));
+$(":button").click(function() {
+    var formData = new FormData($("form")[0]);
     alert("Hello");
     $.ajax({
-        url: "<%= switch_upload_path %>",
+        url: "/switch/upload",
         type: "POST",
+        xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+            }
+            return myXhr;
+        },
         beforeSend: beforeSendHandler,
         success: completeHandler,
         error: errorHandler,
@@ -17,7 +24,8 @@ $("#submit").click(function() {
         cache: false,
         contentType: false,
         processData: false
-    }).done(function(data) {alert(data)});
+        //dataType: "JSON"
+    });//.done(function(data) {alert(data)});
 });
 function lkplay(filename, content, filetype) {
     //alert("Hello World");
@@ -50,5 +58,5 @@ function ajaxGetJSON(url, content) {
 function ajaxUpdate() {
     var $rlt = $("#playlist");
     $rlt.empty();
-    $rlt.load("<%= switch_music_path %> #playlist li");
+    $rlt.load("/switch/music #playlist li");
 }
