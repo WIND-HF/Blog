@@ -11,12 +11,19 @@
 </ol>
 
 <form enctype="multipart/form-data" name="upload" >
-    <input name="song" type="file" /><br><br>
+    <input name="song" type="file" id="file" /><br><br>
     <input type="button" value="Upload" id="Hey" onclick="ajaxUpload()" />
 </form>
+<script>
+    $("#file").on("change", function() {LimitFileSize();});
+    $("#Hey").hide();
+</script>
 <!--
 <progress></progress>
 -->
+<br><br>
+<button onclick="ajaxUpdate()" >Update</button>
+<br><br>
 
 <script>
   //<%= link_to "Upload", switch_new_path %>

@@ -1,13 +1,21 @@
-/*
-$(":song").change(function(){
-    var file = this.files[0];
-    var name = file.name;
-    var size = file.size;
-    var type = file.type;
-});
-*/
+function LimitFileSize(){
+    var $file = $("#file");
+    var name = $file.name;
+    var size = $file.size;
+    var type = $file.type;
+
+    $uploadButton = $("#Hey");
+    if (size > 100000) {
+        $uploadButton.hide("fast");
+        alert("File is too big!!");
+    }
+    else {
+        $uploadButton.show("slow");
+    }
+}
 function ajaxUpload() {
     var formData = new FormData($("form")[0]);
+    $("#Hey").hide("fast");
     $.ajax({
         url: "/switch/ajaxUpload",
         type: "POST",
