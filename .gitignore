@@ -17,3 +17,4 @@
 *.orig
 nohup.out
 #config/database.yml
+public/music/*

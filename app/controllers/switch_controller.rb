@@ -78,14 +78,17 @@ class SwitchController < ApplicationController
   end
 
   def music_format(fileType)
-    if fileType == 'wav'
-      return 'audio/wav'
-    elsif fileType == 'mp3'
-      return 'audio/mpeg'
-    elsif fileType == 'ogg'
-      return 'audio/ogg'
-    else
-      return fileType
+    unless /^(audio|video)\// === fileType
+      if /(wav|mp3|ogg|aac)/ === fileType
+        fileType = 'mpeg' if fileType == 'mp3'
+        return 'audio/' + fileType
+      elsif /(mp4|mkv)/ === fileType
+        return 'video/' + fileType
+      else
+        return fileType
+      end
     end
+
+    fileType
   end
 end
