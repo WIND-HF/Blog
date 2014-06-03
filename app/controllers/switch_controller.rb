@@ -37,6 +37,19 @@ class SwitchController < ApplicationController
     redirect_to switch_music_path
   end
 
+  def ajaxUpload
+    @song = params[:song]
+    @path = 'music'
+    @root = 'public'
+
+    File.open(File.join(@root, @path, @song.original_filename), 'wb') do |file|
+      file.write(@song.read)
+    end
+    add_song(@song.original_filename, @song.content_type, @path)
+
+    redirect_to switch_music_path
+  end
+
   private
   def upload_param
     params.require(:song).permit(:music)

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'switch/music'
   get 'switch/song'
   post 'switch/upload'
+  post 'switch/ajaxUpload'
   get 'switch/new'
   #post 'switch/switch'
   #get 'switch/index'

@@ -10,12 +10,14 @@
     </div>
 </ol>
 
-<!--
-<form enctype="multipart/form-data">
+<form enctype="multipart/form-data" name="upload" >
     <input name="song" type="file" /><br><br>
-    <input type="button" value="Upload" />
+    <input type="button" value="Upload" id="Hey" onclick="ajaxUpload()" />
 </form>
+<!--
 <progress></progress>
 -->
 
-<%= link_to "Upload", switch_new_path %>
+<script>
+  //<%= link_to "Upload", switch_new_path %>
+</script>
